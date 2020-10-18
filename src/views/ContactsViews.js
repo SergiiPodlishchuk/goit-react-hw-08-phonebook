@@ -16,30 +16,32 @@ class ContactsViews extends Component {
 
   render() {
     return (
-      <div className="phoneBook_container">
-        <CSSTransition
-          in={true}
-          appear={true}
-          classNames="title_anim"
-          timeout={500}
-          unmountOnExit
-        >
-          <h1 className="title">Phonebook</h1>
-        </CSSTransition>
+      <>
+        <div className="phoneBook_container">
+          <CSSTransition
+            in={true}
+            appear={true}
+            classNames="title_anim"
+            timeout={500}
+            unmountOnExit
+          >
+            <h1 className="title">Phonebook</h1>
+          </CSSTransition>
 
-        <CSSTransition
-          in={true}
-          appear={true}
-          classNames="form_fade"
-          timeout={500}
-          unmountOnExit
-        >
-          <ContactForm />
-        </CSSTransition>
-        <Filter />
-        {this.props.isLoadingContacts && <h1>грузим</h1>}
-        <ContactList />
-      </div>
+          <CSSTransition
+            in={true}
+            appear={true}
+            classNames="form_fade"
+            timeout={500}
+            unmountOnExit
+          >
+            <ContactForm />
+          </CSSTransition>
+          <Filter />
+          {this.props.isLoadingContacts && <h1>грузим</h1>}
+          <ContactList />
+        </div>
+      </>
     );
   }
 }

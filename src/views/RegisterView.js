@@ -11,27 +11,9 @@ const INITIAL_USER_REGISTER = {
 class RegisterViews extends Component {
   state = INITIAL_USER_REGISTER;
 
-  inputName = ({ target }) => {
-    this.setState({
-      name: target.value,
-    });
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   };
-
-  inputPassword = ({ target }) => {
-    this.setState({
-      password: target.value,
-    });
-  };
-
-  inputEmail = ({ target }) => {
-    this.setState({
-      email: target.value,
-    });
-  };
-
-  //   handleChange = ({ target: { name, value } }) => {
-  //     this.setState({ [name]: value });
-  //   };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -49,18 +31,29 @@ class RegisterViews extends Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             Name
-            <input type="text" value={name} onChange={this.inputName} />
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             Email
-            <input type="email" value={email} onChange={this.inputEmail} />
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             Password
             <input
               type="password"
+              name="password"
               value={password}
-              onChange={this.inputPassword}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -70,10 +63,6 @@ class RegisterViews extends Component {
     );
   }
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//   return { onRegister: (props) => dispatch(authOperations.register(...props)) };
-// };
 
 export default connect(null, { onRegister: authOperations.register })(
   RegisterViews

@@ -23,8 +23,6 @@ const mapStateTorops = (state) => ({
   name: authSelectors.getUserName(state),
 });
 
-const mapDispatchToProps = () => ({
+export default connect(mapStateTorops, {
   onLogout: authOperations.logout,
-});
-
-export default connect(mapStateTorops, mapDispatchToProps)(UserMenu);
+})(UserMenu);

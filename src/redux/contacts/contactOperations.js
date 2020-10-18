@@ -2,7 +2,6 @@ import axios from "axios";
 import contactAction from "./contactAction";
 
 axios.defaults.baseURL = "https://goit-phonebook-api.herokuapp.com";
-// axios.defaults.baseURL = "https://localhost:3004";
 
 const fetchContacts = () => (dispatch) => {
   dispatch(contactAction.fetchContactsRequest());

@@ -1,5 +1,5 @@
 import React, { Component, Suspense } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, BrowserRouter } from "react-router-dom";
 // import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 
@@ -7,43 +7,56 @@ import Loader from "react-loader-spinner";
 import "../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import routes from "../routes";
+import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 
 import Navigation from "./Navigation";
 import UserMenu from "../components/UserMenu/UserMenu";
+
 import authSelectors from "../redux/auth/authSelectors";
+import authOperations from "../redux/auth/authOperations";
 
 import "./App.css";
-import authOperations from "../redux/auth/authOperations";
 
 class App extends Component {
   componentDidMount() {
-    this.props.getCurrentUser();
+    this.props.onGetCurrentUser();
   }
 
   render() {
-    const { isLogin } = this.props;
+    const { isLogin, isUserLoading } = this.props;
 
     return (
       <>
-        <Navigation />
-        {isLogin && <UserMenu />}
-        <Suspense
-          fallback={
-            <Loader
-              type="ThreeDots"
-              color="#f5f505"
-              height={50}
-              width={100}
-              timeout={3000} //3 secs
-            />
-          }
-        >
-          <Switch>
-            {routes.map((route) => (
-              <Route key={route.path} {...route} />
-            ))}
-          </Switch>
-        </Suspense>
+        <BrowserRouter>
+          <Navigation />
+          {isLogin && !isUserLoading && <UserMenu />}
+          <Suspense
+            fallback={
+              <Loader
+                type="ThreeDots"
+                color="#f5f505"
+                height={50}
+                width={100}
+                timeout={3000} //3 secs
+              />
+            }
+          >
+            <Switch>
+              {routes.map((route) => {
+                return route.private ? (
+                  <PrivateRoute key={route.path} {...route} />
+                ) : (
+                  <PublicRoute
+                    key={route.path}
+                    {...route}
+                    restricted={route.restricted}
+                  />
+                );
+              })}
+            </Switch>
+          </Suspense>
+        </BrowserRouter>
       </>
     );
   }
@@ -51,10 +64,11 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   isLogin: authSelectors.isLogin(state),
+  isUserLoading: authSelectors.isUserLoad(state),
 });
 
-const mapDispatchToProps = () => ({
-  getCurrentUser: authOperations.getCurrentUser,
-});
+export default connect(mapStateToProps, {
+  onGetCurrentUser: authOperations.getCurrentUser,
+})(App);
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// {"name":"qwer","email":"qwer@qwer.com","password":"qwertyuio"}"

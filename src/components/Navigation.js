@@ -1,6 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
+
 import routes from "../routes";
+
+import authSelectors from "../redux/auth/authSelectors";
 
 const routePath = routes.map((route) => route.path);
 const routeLabel = routes.map((route) => route.label);
@@ -38,4 +42,9 @@ const Navigation = () => (
     </ul>
   </>
 );
-export default Navigation;
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: authSelectors.isLogin(state),
+});
+
+export default connect(mapStateToProps)(Navigation);

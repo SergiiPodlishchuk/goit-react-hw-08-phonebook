@@ -12,27 +12,28 @@ const token = {
   },
 };
 
-const register = (userData) => async (dispatch) => {
+const register = (credentials) => async (dispatch) => {
   dispatch(authActions.registerRequest());
+
   await axios
-    .post("/users/signup", userData)
+    .post("/users/signup", credentials)
     .then((response) => {
       console.log(response);
       token.set(response.data.token);
       dispatch(authActions.registerSuccess(response.data));
     })
-    .catch((error) => dispatch(authActions.registerError(error)));
+    .catch((error) => dispatch(authActions.registerError(error.message)));
 };
 
-const login = (userData) => (dispatch) => {
+const login = (credentials) => async (dispatch) => {
   dispatch(authActions.loginRequest());
-  axios
-    .post("/users/login", userData)
-    .then((response) => {
-      token.set(response.data.token);
-      dispatch(authActions.loginSuccess(response.data));
+  await axios
+    .post("/users/login", credentials)
+    .then(({ data }) => {
+      token.set(data.token);
+      dispatch(authActions.loginSuccess(data));
     })
-    .catch((error) => dispatch(authActions.loginError(error)));
+    .catch((error) => dispatch(authActions.loginError(error.message)));
 };
 
 const logout = () => (dispatch) => {
@@ -43,7 +44,7 @@ const logout = () => (dispatch) => {
       token.unset();
       dispatch(authActions.logoutSuccess());
     })
-    .catch((error) => dispatch(authActions.logoutError(error)));
+    .catch((error) => dispatch(authActions.logoutError(error.message)));
 };
 
 const getCurrentUser = () => (dispatch, getState) => {
@@ -59,8 +60,10 @@ const getCurrentUser = () => (dispatch, getState) => {
   dispatch(authActions.getCurrentUserRequest());
   axios
     .get("/users/current")
-    .then(({ data }) => dispatch(authActions.getCurrentUserSuccess(data)))
-    .catch((error) => dispatch(authActions.getCurrentUserError(error)));
+    .then(({ data }) => {
+      dispatch(authActions.getCurrentUserSuccess(data));
+    })
+    .catch((error) => dispatch(authActions.getCurrentUserError(error.message)));
 };
 
 export default {

@@ -3,12 +3,9 @@ import { createReducer } from "@reduxjs/toolkit";
 
 import contactAction from "./contactAction";
 
-const onAddContact = (state, { payload }) => {
-  return [payload, ...state];
-};
-const onRemoveContact = (state, { payload }) => {
-  return state.filter(({ id }) => id !== payload);
-};
+const onAddContact = (state, { payload }) => [payload, ...state];
+const onRemoveContact = (state, { payload }) =>
+  state.filter(({ id }) => id !== payload);
 
 const items = createReducer([], {
   [contactAction.fetchContactsSuccess]: (_, { payload }) => payload,
@@ -17,7 +14,7 @@ const items = createReducer([], {
 });
 
 const filter = createReducer("", {
-  [contactAction.changeFilter]: (state, { payload }) => payload,
+  [contactAction.changeFilter]: (_, { payload }) => payload,
 });
 
 const loading = createReducer(false, {

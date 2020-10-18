@@ -10,23 +10,14 @@ const INITIAL_LOGIN = {
 class LoginViews extends Component {
   state = INITIAL_LOGIN;
 
-  inputEmail = ({ target }) => {
-    this.setState({
-      email: target.value,
-    });
-  };
-
-  inputPassword = ({ target }) => {
-    this.setState({
-      password: target.value,
-    });
+  handleChange = ({ target: { name, value } }) => {
+    this.setState({ [name]: value });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password } = this.state;
     const { onLogin } = this.props;
-    onLogin(email, password);
+    onLogin({ ...this.state });
     this.setState({ ...INITIAL_LOGIN });
   };
 
@@ -38,14 +29,20 @@ class LoginViews extends Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             Email
-            <input type="email" value={email} onChange={this.inputEmail} />
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={this.handleChange}
+            />
           </label>
           <label>
             Password
             <input
               type="password"
+              name="password"
               value={password}
-              onChange={this.inputPassword}
+              onChange={this.handleChange}
             />
           </label>
 
@@ -55,9 +52,5 @@ class LoginViews extends Component {
     );
   }
 }
-
-// const mapDispatchToProps = () => ({
-//   onLogin: authOperations.login,
-// });
 
 export default connect(null, { onLogin: authOperations.login })(LoginViews);

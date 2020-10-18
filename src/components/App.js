@@ -2,6 +2,7 @@ import React, { Component, Suspense } from "react";
 import { Switch, BrowserRouter } from "react-router-dom";
 // import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 import Loader from "react-loader-spinner";
 import "../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -11,6 +12,7 @@ import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 
 import Navigation from "./Navigation";
+import AuthMenu from "./AuthMenu";
 import UserMenu from "../components/UserMenu/UserMenu";
 
 import authSelectors from "../redux/auth/authSelectors";
@@ -29,8 +31,15 @@ class App extends Component {
     return (
       <>
         <BrowserRouter>
-          <Navigation />
-          {isLogin && !isUserLoading && <UserMenu />}
+          <div className="NavigationMenu">
+            {isLogin && (
+              <NavLink to="/contacts" className="Contacts_title">
+                Contacts
+              </NavLink>
+            )}
+
+            {isLogin && !isUserLoading ? <UserMenu /> : <AuthMenu />}
+          </div>
           <Suspense
             fallback={
               <Loader

@@ -1,5 +1,5 @@
 import axios from "axios";
-import contactAction from "./contactAction";
+import contactAction from "../redux/contacts/contactAction";
 
 axios.defaults.baseURL = "https://goit-phonebook-api.herokuapp.com";
 

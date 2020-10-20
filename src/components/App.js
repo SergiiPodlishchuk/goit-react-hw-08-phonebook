@@ -15,7 +15,7 @@ import AuthMenu from "./AuthMenu";
 import UserMenu from "../components/UserMenu/UserMenu";
 
 import authSelectors from "../redux/auth/authSelectors";
-import authOperations from "../redux/auth/authOperations";
+import authOperations from "../services/fetchAuth";
 
 import "./App.css";
 

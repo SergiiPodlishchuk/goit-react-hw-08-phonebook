@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import authOperations from "../../redux/auth/authOperations";
+import authOperations from "../../services/fetchAuth";
 import authSelectors from "../../redux/auth/authSelectors";
 
 const UserMenu = ({ name, onLogout }) => {

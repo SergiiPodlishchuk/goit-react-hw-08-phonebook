@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import authOperations from "../redux/auth/authOperations";
+import authOperations from "../services/fetchAuth";
 
 const INITIAL_USER_REGISTER = {
   name: "",

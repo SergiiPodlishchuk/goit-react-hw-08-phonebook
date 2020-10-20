@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import contactOperations from "../../redux/contacts/contactOperations";
+import contactOperations from "../../services/fetchContacts";
 import contactSelectors from "../../redux/contacts/contactSelectors";
 import Alert from "../Alert/Alert";
 

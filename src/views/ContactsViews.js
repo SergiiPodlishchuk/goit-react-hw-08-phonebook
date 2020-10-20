@@ -6,7 +6,7 @@ import ContactForm from "../components/ContactForm/ContactForm";
 import ContactList from "../components/ContactList/ContactList";
 import Filter from "../components/Filter/Filter";
 
-import contactsOperation from "../redux/contacts/contactOperations";
+import contactsOperation from "../services/fetchContacts";
 import contactSelectors from "../redux/contacts/contactSelectors";
 
 class ContactsViews extends Component {

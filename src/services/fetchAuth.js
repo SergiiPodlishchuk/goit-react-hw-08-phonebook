@@ -1,5 +1,5 @@
 import axios from "axios";
-import authActions from "./authActions";
+import authActions from "../redux/auth/authActions";
 
 axios.defaults.baseURL = "https://goit-phonebook-api.herokuapp.com";
 
@@ -36,9 +36,9 @@ const login = (credentials) => async (dispatch) => {
     .catch((error) => dispatch(authActions.loginError(error.message)));
 };
 
-const logout = () => (dispatch) => {
+const logout = () => async (dispatch) => {
   dispatch(authActions.logoutRequest());
-  axios
+  await axios
     .post("/users/logout")
     .then(() => {
       token.unset();
@@ -47,7 +47,7 @@ const logout = () => (dispatch) => {
     .catch((error) => dispatch(authActions.logoutError(error.message)));
 };
 
-const getCurrentUser = () => (dispatch, getState) => {
+const getCurrentUser = () => async (dispatch, getState) => {
   const {
     auth: { token: persistedToken },
   } = getState();
@@ -58,7 +58,7 @@ const getCurrentUser = () => (dispatch, getState) => {
 
   token.set(persistedToken);
   dispatch(authActions.getCurrentUserRequest());
-  axios
+  await axios
     .get("/users/current")
     .then(({ data }) => {
       dispatch(authActions.getCurrentUserSuccess(data));

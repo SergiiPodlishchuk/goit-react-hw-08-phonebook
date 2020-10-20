@@ -3,9 +3,9 @@ import contactAction from "../redux/contacts/contactAction";
 
 axios.defaults.baseURL = "https://goit-phonebook-api.herokuapp.com";
 
-const fetchContacts = () => (dispatch) => {
+const fetchContacts = () => async (dispatch) => {
   dispatch(contactAction.fetchContactsRequest());
-  axios
+  await axios
     .get("/contacts")
     .then((res) => {
       dispatch(contactAction.fetchContactsSuccess(res.data));
@@ -13,17 +13,17 @@ const fetchContacts = () => (dispatch) => {
     .catch((error) => dispatch(contactAction.fetchContactsError(error)));
 };
 
-const addContact = ({ name, number }) => (dispatch) => {
+const addContact = ({ name, number }) => async (dispatch) => {
   dispatch(contactAction.addContactsRequest());
-  axios
+  await axios
     .post("/contacts", { name, number })
     .then(({ data }) => dispatch(contactAction.addContactsSuccess(data)))
     .catch((error) => dispatch(contactAction.addContactsError(error)));
 };
 
-const removeContacts = (id) => (dispatch) => {
+const removeContacts = (id) => async (dispatch) => {
   dispatch(contactAction.removeContactsRequest());
-  axios
+  await axios
     .delete(`/contacts/${id}`)
     .then(() => dispatch(contactAction.removeContactsSuccess(id)))
     .catch((error) => dispatch(contactAction.removeContactsError(error)));

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { CSSTransition } from "react-transition-group";
 
+import Loader from "react-loader-spinner";
+import "../../node_modules/react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
 import ContactForm from "../components/ContactForm/ContactForm";
 import ContactList from "../components/ContactList/ContactList";
 import Filter from "../components/Filter/Filter";
@@ -38,7 +41,15 @@ class ContactsViews extends Component {
             <ContactForm />
           </CSSTransition>
           <Filter />
-          {this.props.isLoadingContacts && <h1>грузим</h1>}
+          {this.props.isLoadingContacts && (
+            <Loader
+              type="ThreeDots"
+              color="#f5f505"
+              height={50}
+              width={100}
+              timeout={3000} //3 secs
+            />
+          )}
           <ContactList />
         </div>
       </>

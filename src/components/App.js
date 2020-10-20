@@ -1,6 +1,5 @@
 import React, { Component, Suspense } from "react";
 import { Switch, BrowserRouter } from "react-router-dom";
-// import { CSSTransition } from "react-transition-group";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 

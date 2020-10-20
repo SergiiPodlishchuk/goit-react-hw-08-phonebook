@@ -25,14 +25,15 @@ class LoginViews extends Component {
     const { email, password } = this.state;
     return (
       <>
-        <h1>Login please</h1>
-        <form onSubmit={this.handleSubmit}>
+        <h1 className="register_title">Login please</h1>
+        <form className="form_register" onSubmit={this.handleSubmit}>
           <label>
             Email
             <input
               type="email"
               name="email"
               value={email}
+              placeholder="Enter email"
               onChange={this.handleChange}
             />
           </label>
@@ -42,6 +43,7 @@ class LoginViews extends Component {
               type="password"
               name="password"
               value={password}
+              placeholder="Enter password"
               onChange={this.handleChange}
             />
           </label>

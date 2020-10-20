@@ -27,14 +27,15 @@ class RegisterViews extends Component {
 
     return (
       <>
-        <h1>Register please</h1>
-        <form onSubmit={this.handleSubmit}>
+        <h1 className="register_title">Register please</h1>
+        <form className="form_register" onSubmit={this.handleSubmit}>
           <label>
             Name
             <input
               type="text"
               name="name"
               value={name}
+              placeholder="Enter name"
               onChange={this.handleChange}
             />
           </label>
@@ -44,6 +45,7 @@ class RegisterViews extends Component {
               type="email"
               name="email"
               value={email}
+              placeholder="Enter email"
               onChange={this.handleChange}
             />
           </label>
@@ -53,6 +55,7 @@ class RegisterViews extends Component {
               type="password"
               name="password"
               value={password}
+              placeholder="Enter password"
               onChange={this.handleChange}
             />
           </label>

@@ -6,12 +6,7 @@ import authSelectors from "../../redux/auth/authSelectors";
 const UserMenu = ({ name, onLogout }) => {
   return (
     <div className="userMenu">
-      <img
-        src="https://static.ukrinform.com/photos/2019_10/1571237216-4798.jpeg"
-        alt="userPhoto"
-        style={{ width: 100 }}
-      />
-      <p>Welcome, {name}</p>
+      <p>Welcome, {name} !!!</p>
       <button type="submit" onClick={onLogout}>
         Logout
       </button>

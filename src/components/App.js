@@ -11,7 +11,6 @@ import routes from "../routes";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 
-import Navigation from "./Navigation";
 import AuthMenu from "./AuthMenu";
 import UserMenu from "../components/UserMenu/UserMenu";
 
@@ -31,14 +30,14 @@ class App extends Component {
     return (
       <>
         <BrowserRouter>
-          <div className="NavigationMenu">
+          <div className="Navigation">
             {isLogin && (
               <NavLink to="/contacts" className="Contacts_title">
                 Contacts
               </NavLink>
             )}
-
-            {isLogin && !isUserLoading ? <UserMenu /> : <AuthMenu />}
+            <div></div>
+            <div>{isLogin && !isUserLoading ? <UserMenu /> : <AuthMenu />}</div>
           </div>
           <Suspense
             fallback={

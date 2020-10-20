@@ -11,7 +11,7 @@ const routeLabel = routes.map((route) => route.label);
 
 const AuthMenu = () => (
   <>
-    <ul className="Navigation">
+    <ul className="Navigation_log-reg">
       <li>
         <NavLink
           to={routePath[0]}
